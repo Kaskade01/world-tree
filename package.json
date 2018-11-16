@@ -1,0 +1,15 @@
+{
+  "name": "digraph",
+  "version": "1.0.0",
+  "description": "pedigree drawing software",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node --experimental-modules index.mjs"
+  },
+  "keywords": [
+    "digraph"
+  ],
+  "author": "kaskade",
+  "license": "UNLICENSED"
+}
