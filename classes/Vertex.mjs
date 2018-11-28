@@ -1,8 +1,8 @@
-function Vertex(vertex_id){
+function Vertex(vertex_id, vertex_name){
     var data = {
         "vertex_id" : vertex_id,
         "pedigree_id" : null,
-        "name" : null,
+        "name" : vertex_name,
         "subject_id" : null,
         "father_id" : null,
         "mother_id" : null,

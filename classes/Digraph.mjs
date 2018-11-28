@@ -1,4 +1,5 @@
 import fs from 'fs'
+import Vertex from "./Vertex.mjs"
 
 function Digraph(){
     // private fields
@@ -35,9 +36,10 @@ function Digraph(){
             contents = contents.split('\n')
             // parse each pair of vertices (pairs start at index 2)
             for(var i = 2; i < contents.length; i++){
-                contents[i] = contents[i].split(" ", 2)
+                contents[i] = contents[i].split(" ", 3)
             }
-
+            
+            console.log(contents)
             // add vertices
             number_of_vertices = parseInt(contents[0])
             if(number_of_vertices < 0){
@@ -50,15 +52,87 @@ function Digraph(){
                 adjacency_list[i] = []
             }
 
+            function reduce_number(big_number, digits){
+                var small_number = String(big_number).slice(-(digits)) //num to string
+                return (small_number)-1 // minus 1 because destination starts at 0
+            }
+
+            var splice_digits = +(String(number_of_vertices).length)
+
             // add edges
             var edges_from_input = parseInt(contents[1])
             if(edges_from_input < 0){
                 throw new Error("Number of edges in a Digraph must be nonnegative")
             }
             for(var i = 2; i < edges_from_input+2; i++){
-                var edge_start = parseInt(contents[i][0])
-                var edge_finish = parseInt(contents[i][1])
-                add_edge(edge_start, edge_finish)
+                var vertex_start_id = parseInt(contents[i][0])
+                var vertex__finish_id = parseInt(contents[i][1])
+
+                var vertex_start_name = reduce_number(vertex_start_id, splice_digits)
+                var vertex_finish_name = reduce_number(vertex__finish_id, splice_digits)
+
+                var vertex_start = Vertex(vertex_start_id, vertex_start_name)
+                var vertex_finish = Vertex(vertex__finish_id, vertex_finish_name)
+
+                // create new vertex, 
+                add_edge(vertex_start, vertex_finish)
+            }
+        } catch(error){
+            console.log("(Code10): "+ error.message)
+            return
+        }
+    }
+
+    function init_Digraph_from_converted(input_stream){
+        try{
+            var contents = fs.readFileSync(input_stream, 'utf8')
+
+            // parse each line
+            contents = contents.split('\n')
+            // parse each pair of vertices (pairs start at index 2)
+            for(var i = 2; i < contents.length; i++){
+                contents[i] = contents[i].split(" ", 3)
+            }
+            // get rid of last empty line
+            contents.splice(-1,1)
+            
+            console.log(contents)
+            // add vertices
+            number_of_vertices = parseInt(contents[0])
+            if(number_of_vertices < 0){
+                throw new Error("Number of vertices in a Digraph must be nonnegative")
+            }
+            indegree = []
+            adjacency_list = {}
+            for(var i = 0; i < number_of_vertices; i++){
+                indegree.push(0)
+                adjacency_list[i] = []
+            }
+
+            function reduce_number(big_number, digits){
+                var small_number = String(big_number).slice(-(digits)) //num to string
+                return (small_number)-1 // minus 1 because destination starts at 0
+            }
+
+            var splice_digits = +(String(number_of_vertices).length)
+
+            // add edges
+            var edges_from_input = parseInt(contents[1])
+            if(edges_from_input < 0){
+                throw new Error("Number of edges in a Digraph must be nonnegative")
+            }
+            for(var i = 2; i < edges_from_input+2; i++){
+                var vertex_start_id = parseInt(contents[i][0])
+                var vertex__finish_id = parseInt(contents[i][1])
+
+                var vertex_start_name = reduce_number(vertex_start_id, splice_digits)
+                var vertex_finish_name = reduce_number(vertex__finish_id, splice_digits)
+
+                var vertex_start = Vertex(vertex_start_id, vertex_start_name)
+                var vertex_finish = Vertex(vertex__finish_id, vertex_finish_name)
+
+                // create new vertex, 
+                add_edge(vertex_start, vertex_finish)
             }
         } catch(error){
             console.log("(Code10): "+ error.message)
@@ -106,10 +180,10 @@ function Digraph(){
     // adds a directed edge between two vertices in the digraph
     function add_edge(tail_vertex, head_vertex){
         try{
-            validate_vertex(tail_vertex)
-            validate_vertex(head_vertex)
-            adjacency_list[tail_vertex].push(head_vertex)
-            indegree[head_vertex]++
+            validate_vertex(tail_vertex.get_name())
+            validate_vertex(head_vertex.get_name())
+            adjacency_list[tail_vertex.get_name()].push(head_vertex.get_name())
+            indegree[head_vertex.get_name()]++
             number_of_edges++
         } catch(error){
             console.log("(Code20): "+ error.message)
@@ -183,6 +257,7 @@ function Digraph(){
 
     return Object.freeze({
         init_Digraph, init_Digraph_from_input, init_digraph_copy,
+        init_Digraph_from_converted,
         get_number_of_vertices, get_number_of_edges, add_edge,
         get_adjacent, get_outdegree, get_indegree,
         get_reverse_digraph, to_string,

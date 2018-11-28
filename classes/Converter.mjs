@@ -37,16 +37,16 @@ function Converter(){
             
             // count the vertices and edges
             var vertices = contents.length
-            var splice_digits = +(String(vertices).length)
+            
             var edges = 0
             var temp_buffer = ""
             for(i=0; i < contents.length; i++){
                 if(contents[i][2] != null){
-                    temp_buffer = temp_buffer + reduce_number(contents[i][2], splice_digits) + " " + reduce_number(contents[i][1], splice_digits) + "\n"
+                    temp_buffer = temp_buffer + contents[i][2] + " " + contents[i][1] +  " " + contents[i][4] + "\n"
                     edges++
                 }
                 if(contents[i][3] != null){
-                    temp_buffer = temp_buffer + reduce_number(contents[i][3], splice_digits) + " " + reduce_number(contents[i][1], splice_digits) + "\n"
+                    temp_buffer = temp_buffer + contents[i][3] + " " + contents[i][1] +  " " + contents[i][4] + "\n"
                     edges++
                 }
             }

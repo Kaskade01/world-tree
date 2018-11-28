@@ -8,7 +8,7 @@ var converter_thing = Converter()
 var converted_input = converter_thing.convert_pedigree_input("200449.txt")
 
 // construct the DAG from the input
-DAG.init_Digraph_from_input(converted_input)
+DAG.init_Digraph_from_converted(converted_input)
 //DAG.init_Digraph_from_input("tinydg.txt")
 // print out the adjacency list of the DAG
 console.log(DAG.to_string())
