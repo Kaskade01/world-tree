@@ -5,6 +5,7 @@ function Digraph(){
     // private fields
     var number_of_vertices = null
     var number_of_edges = null
+    var vertices = null
     var adjacency_list = null
     var indegree = null 
 
@@ -96,13 +97,16 @@ function Digraph(){
             // get rid of last empty line
             contents.splice(-1,1)
             
-            console.log(contents)
+            console.log(contents) // DEBUG
+
             // add vertices
             number_of_vertices = parseInt(contents[0])
             if(number_of_vertices < 0){
                 throw new Error("Number of vertices in a Digraph must be nonnegative")
             }
+            
             indegree = []
+            vertices = {}
             adjacency_list = {}
             for(var i = 0; i < number_of_vertices; i++){
                 indegree.push(0)
@@ -121,6 +125,7 @@ function Digraph(){
             if(edges_from_input < 0){
                 throw new Error("Number of edges in a Digraph must be nonnegative")
             }
+            // start reading edges from 3rd line of input
             for(var i = 2; i < edges_from_input+2; i++){
                 var vertex_start_id = parseInt(contents[i][0])
                 var vertex__finish_id = parseInt(contents[i][1])
@@ -131,8 +136,18 @@ function Digraph(){
                 var vertex_start = Vertex(vertex_start_id, vertex_start_name)
                 var vertex_finish = Vertex(vertex__finish_id, vertex_finish_name)
 
+                if( !(vertices[vertex_start_name]) ){
+                    vertices[vertex_start_name] = vertex_start
+                }
+                if( !(vertices[vertex_finish_name]) ){
+                    vertices[vertex_finish_name] = vertex_finish
+                }
+
                 // create new vertex, 
                 add_edge(vertex_start, vertex_finish)
+            }
+            for(var vertexkey in vertices){
+                console.log(vertices[vertexkey].get_name(), vertices[vertexkey].get_vertex_id())
             }
         } catch(error){
             console.log("(Code10): "+ error.message)
@@ -182,6 +197,7 @@ function Digraph(){
         try{
             validate_vertex(tail_vertex.get_name())
             validate_vertex(head_vertex.get_name())
+            //adjacency_list[tail_vertex].push(head_vertex)  (attempted to use vertex objects instead of vertex names)
             adjacency_list[tail_vertex.get_name()].push(head_vertex.get_name())
             indegree[head_vertex.get_name()]++
             number_of_edges++
