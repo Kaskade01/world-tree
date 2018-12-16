@@ -81,7 +81,7 @@ function Converter(){
 
             // return converted file input name
             return ["converted"+input_stream, "converted-verts"+input_stream]
-        } catch(errror){
+        } catch(error){
             console.log("Converter Error (60): " + error.message)
             return
         }
