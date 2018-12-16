@@ -1,7 +1,7 @@
 {
-  "name": "final-tree",
+  "name": "world-tree",
   "version": "1.0.0",
-  "description": "final tree",
+  "description": "Pedigree drawing software",
   "main": "main.js",
   "scripts": {
     "start": "node main.js"
