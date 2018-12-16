@@ -36,8 +36,6 @@ function DepthFirstOrder(){
                 depth_first_search(digraph, vertex)
             }
         }
-
-        //console.log(data)
     }
 
     /**
@@ -51,7 +49,6 @@ function DepthFirstOrder(){
         data["pre"][vertex] = data["pre_counter"]++
         data["preorder_queue"].push(vertex) // enqueue the vertex in preorder list
         adjacency_vertices = digraph.get_adjacent(vertex) // returns array list of adjacents
-        //console.log(adjacency_vertices.join(', '))
         adjacency_vertices.forEach(adjacent_vertex => {
             if( (data["marked"][adjacent_vertex] != true) ){
                 depth_first_search(digraph, adjacent_vertex)

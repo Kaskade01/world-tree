@@ -2,7 +2,6 @@ const fs = require('fs')                             // node file system module
 const exec = require('child_process').exec           // node child process module
 const DepthFirstOrder = require('./DepthFirstOrder') // DFS function class
 
-
 /** 
  * This class function represents a plotter class that calculates the positions
  * of each vertex in a layered tree-like structure and outputs the results to a diagraph file.

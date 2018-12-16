@@ -132,8 +132,6 @@ function Digraph(){
         }
     }
 
-
-
     /**
      * Utility function that reduces the subject IDs to a smaller number
      * @param {integer} big_number - the big number that gets reduced
@@ -253,8 +251,6 @@ function Digraph(){
             }
             matrix_column++
         });
-
-        // console.log("V_"+V + " " +adjacent_vertices.join(', ')) // debugging
         return adjacent_vertices        
     }
 
