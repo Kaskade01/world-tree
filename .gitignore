@@ -1,5 +1,5 @@
 .DS_Store
 *.txt
-*.gv
-*.ps
 node_modules/
+dotfile.gv
+plotfile.ps
